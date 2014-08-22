@@ -12,7 +12,6 @@ angular.module('ngBoilerplate', [
     //Plugins
     'authorization',
     'ui.router',
-    'validation',
     'ngSanitize',
     'angular-loading-bar'
 ])

@@ -8,13 +8,6 @@ angular.module('database', [
         function ($http, $q, PouchDB) {
             var factory = {};
 
-            factory.db = new PouchDB('https://housemt.couchappy.com/');
-
-            factory.setType = function(type) {
-                return {
-                    type: type
-                };
-            };
-
+            factory.db = new PouchDB('https://housemt.couchappy.com/todos');
             return factory;
         }]);

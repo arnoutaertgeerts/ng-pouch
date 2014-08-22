@@ -1,5 +1,8 @@
 angular.module('admin', [
-    'ui.router'
+    'ui.router',
+    'trNgGrid',
+    'model.todo',
+    'database'
 ])
 
     .config(function config($stateProvider) {
@@ -18,6 +21,21 @@ angular.module('admin', [
         });
     })
 
-    .controller('AdminCtrl', function AdminController($scope) {
+    .controller('AdminCtrl', function AdminController($scope, Todo, database) {
+        var db = database.db;
 
+        Todo.all().then(function(res) {
+            console.log(res);
+        }, function(err) {
+            console.log(err);
+        });
+
+        $scope.newTodo = function() {
+            var todo = Todo.example();
+            todo.$save().then(function(res) {
+                console.log(res);
+            }, function(err) {
+                console.log(err);
+            });
+        };
     });

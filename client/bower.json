@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "angular-loading-bar": "~0.5.0",
-    "angular-pouchdb": "angular-pouchdb/angular-pouchdb"
+    "angular-pouchdb": "angular-pouchdb/angular-pouchdb",
+    "trNgGrid": "~3.0.3"
   }
 }

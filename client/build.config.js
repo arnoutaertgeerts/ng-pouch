@@ -63,7 +63,7 @@ module.exports = {
     vendor_files: {
         js: [
             'vendor/angular/angular.js',
-            'vendor/pouchdb/dist/pouchdb.min.js',
+            'vendor/pouchdb/dist/pouchdb.js',
             'vendor/pouchdb-authentication/dist/pouchdb.authentication.min.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-placeholders/placeholders-0.0.1-SNAPSHOT.min.js',
@@ -73,11 +73,13 @@ module.exports = {
             'vendor/angular-form-for/dist/form-for.min.js',
             'vendor/angular-pouchdb/angular-pouchdb.js',
             'vendor/angular-sanitize/angular-sanitize.min.js',
-            'vendor/angular-loading-bar/build/loading-bar.min.js'
+            'vendor/angular-loading-bar/build/loading-bar.min.js',
+            'vendor/trNgGrid/release/trNgGrid.min.js'
         ],
         css: [
-            'vendor/angular-xeditable/dist/css/xeditable.css',
-            'vendor/angular-loading-bar/build/loading-bar.min.css'
+            'vendor/angular-loading-bar/build/loading-bar.min.css',
+            'vendor/angular-form-for/dist/form-for.css',
+            'vendor/trNgGrid/release/trNgGrid.min.css'
         ],
         assets: [
         ]

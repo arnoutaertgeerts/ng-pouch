@@ -1,8 +1,7 @@
 angular.module('user', [
     'ui.router',
     'ui.bootstrap',
-    'authorization',
-    'validation'
+    'authorization'
 ])
 
     /*
