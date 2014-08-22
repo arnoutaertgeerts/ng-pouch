@@ -43,14 +43,17 @@ angular.module('model', [
                 };
 
                 Model.prototype.$save = function () {
-                    if (!this._id) {
-                        return db.post(this);
+                    var model = this;
+                    if (!model._id) {
+                        return db.post(model);
                     } else {
-                        return db.put(this);
+                        return db.put(model).then(function(res) {
+                            model._rev = res.rev;
+                        });
                     }
                 };
 
-                Model.prototype.$delete = function() {
+                Model.prototype.$remove = function() {
                     return db.remove(this);
                 };
 

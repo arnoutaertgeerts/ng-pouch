@@ -74,12 +74,15 @@ module.exports = {
             'vendor/angular-pouchdb/angular-pouchdb.js',
             'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/angular-loading-bar/build/loading-bar.min.js',
-            'vendor/trNgGrid/release/trNgGrid.min.js'
+            'vendor/trNgGrid/release/trNgGrid.min.js',
+            'vendor/angular-animate/angular-animate.min.js',
+            'vendor/angularjs-toaster/toaster.js'
         ],
         css: [
             'vendor/angular-loading-bar/build/loading-bar.min.css',
             'vendor/angular-form-for/dist/form-for.css',
-            'vendor/trNgGrid/release/trNgGrid.min.css'
+            'vendor/trNgGrid/release/trNgGrid.min.css',
+            'vendor/angularjs-toaster/toaster.css'
         ],
         assets: [
         ]

@@ -11,6 +11,7 @@ angular.module('ngBoilerplate', [
     'user',
     //Plugins
     'authorization',
+    'toaster',
     'ui.router',
     'ngSanitize',
     'angular-loading-bar'
