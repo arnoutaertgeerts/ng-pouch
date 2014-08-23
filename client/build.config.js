@@ -62,6 +62,7 @@ module.exports = {
      */
     vendor_files: {
         js: [
+            'vendor/pace/pace.min.js',
             'vendor/angular/angular.js',
             'vendor/pouchdb/dist/pouchdb.js',
             'vendor/pouchdb-authentication/dist/pouchdb.authentication.min.js',
@@ -73,13 +74,12 @@ module.exports = {
             'vendor/angular-form-for/dist/form-for.min.js',
             'vendor/angular-pouchdb/angular-pouchdb.js',
             'vendor/angular-sanitize/angular-sanitize.min.js',
-            'vendor/angular-loading-bar/build/loading-bar.min.js',
             'vendor/trNgGrid/release/trNgGrid.min.js',
             'vendor/angular-animate/angular-animate.min.js',
             'vendor/angularjs-toaster/toaster.js'
         ],
         css: [
-            'vendor/angular-loading-bar/build/loading-bar.min.css',
+            'vendor/pace/themes/pace-theme-corner-indicator.css',
             'vendor/angular-form-for/dist/form-for.css',
             'vendor/trNgGrid/release/trNgGrid.min.css',
             'vendor/angularjs-toaster/toaster.css'

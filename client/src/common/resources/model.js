@@ -45,7 +45,9 @@ angular.module('model', [
                 Model.prototype.$save = function () {
                     var model = this;
                     if (!model._id) {
-                        return db.post(model);
+                        return db.post(model).then(function(res) {
+                            model._rev = res.rev;
+                        });
                     } else {
                         return db.put(model).then(function(res) {
                             model._rev = res.rev;

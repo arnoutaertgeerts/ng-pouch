@@ -13,8 +13,7 @@ angular.module('ngBoilerplate', [
     'authorization',
     'toaster',
     'ui.router',
-    'ngSanitize',
-    'angular-loading-bar'
+    'ngSanitize'
 ])
 
     .config(function myAppConfig($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {

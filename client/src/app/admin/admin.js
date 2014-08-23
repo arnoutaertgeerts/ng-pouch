@@ -47,22 +47,26 @@ angular.module('admin', [
         };
 
         $scope.edit = function(todo) {
+
             var modal = $modal.open({
                 templateUrl: 'todoModal.html',
                 controller: ModalInstanceCtrl,
                 resolve: {
-                    todo: function () {
-                        return todo;
+                    edit: function () {
+                        return angular.copy(todo);
                     }
                 }
             });
 
-            modal.result.then(function(todo) {
-                todo.$save().then(function(res) {
+            modal.result.then(function(data) {
+                data.$save().then(function(res) {
                     toaster.pop('success', 'All changes saved');
+                    $scope.todos[$scope.todos.indexOf(todo)] = data;
                 }, function(err) {
                     toaster.pop('error', 'Something went wrong :(', err.message);
                 });
+
+            }, function() {
 
             });
         };
@@ -70,8 +74,8 @@ angular.module('admin', [
         /**
          * @ngInject
          */
-        var ModalInstanceCtrl = function ($scope, $modalInstance, todo) {
-            $scope.todo = todo;
+        var ModalInstanceCtrl = function ($scope, $modalInstance, edit) {
+            $scope.edit = edit;
 
             $scope.submit = function (data) {
                 $modalInstance.close(data);
