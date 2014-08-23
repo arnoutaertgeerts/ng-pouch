@@ -2,7 +2,8 @@ angular.module('admin', [
     'ui.router',
     'trNgGrid',
     'model.todo',
-    'toaster'
+    'toaster',
+    'cfp.loadingBar'
 ])
 
     .config(function config($stateProvider) {
@@ -21,29 +22,32 @@ angular.module('admin', [
         });
     })
 
-    .controller('AdminCtrl', function AdminController($scope, Todo, database, toaster, $modal) {
+    .controller('AdminCtrl', function AdminController($scope, Todo, database, toaster, $modal, cfpLoadingBar) {
+        cfpLoadingBar.start();
         Todo.all().then(function(res) {
             $scope.todos = res;
         }, function(err) {
             toaster.pop('error', err);
-        });
+        }).finally(cfpLoadingBar.complete());
 
         $scope.newTodo = function() {
+            cfpLoadingBar.start();
             var todo = Todo.example();
             todo.$save().then(function(res) {
                 $scope.todos.push(todo);
             }, function(err) {
                 toaster.pop('error', err);
-            });
+            }).finally(cfpLoadingBar.complete());
         };
 
         $scope.remove = function(todo) {
+            cfpLoadingBar.start();
             todo.$remove().then(function(res) {
                 $scope.todos.splice($scope.todos.indexOf(todo),1);
                 toaster.pop('info', 'Item successfully deleted');
             }, function(err) {
                 toaster.pop('error', 'Something went wrong :(', err.message);
-            });
+            }).finally(cfpLoadingBar.complete());
         };
 
         $scope.edit = function(todo) {
@@ -59,12 +63,13 @@ angular.module('admin', [
             });
 
             modal.result.then(function(data) {
+                cfpLoadingBar.start();
                 data.$save().then(function(res) {
                     toaster.pop('success', 'All changes saved');
                     $scope.todos[$scope.todos.indexOf(todo)] = data;
                 }, function(err) {
                     toaster.pop('error', 'Something went wrong :(', err.message);
-                });
+                }).finally(cfpLoadingBar.complete());
 
             }, function() {
 
