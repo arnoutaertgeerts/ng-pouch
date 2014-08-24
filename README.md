@@ -2,6 +2,9 @@ ng-pouch
 ========
 
 Full stack angular app using pouchDB/couchDB to store data and handle security.
+
+## Stack
+
 We make use of the following technologies:
 
 - [AngularJS](https://angularjs.com)
