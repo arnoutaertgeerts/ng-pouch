@@ -12,13 +12,13 @@ We make use of the following technologies:
 - [PouchDB](http://pouchdb.com): Couchdb client
   - [angular-pouchdb](https://github.com/angular-pouchdb/angular-pouchdb): Angular bindings
   - [pouchdb-authentication](https://github.com/nolanlawson/pouchdb-authentication): Easy authentication using pouchdb
-- [CouchDB](https://couchdb.com): NoSQL database
-  - [couchappy](https://couchappy.com) or [iriscouch](https://iriscouch.com) or [cloudant](https://cloudant.com): Online couchdb
+- [CouchDB](http://couchdb.com): NoSQL database
+  - [couchappy](http://couchappy.com) or [iriscouch](http://iriscouch.com) or [cloudant](http://cloudant.com): Online couchdb
   - fauxton to easily create/edit views
   - [chouchapp](https://github.com/mikeal/node.couchapp.js): Easily create/edit validation functions
-- [Express](https://expressjs.com) to serve the app
+- [Express](http://expressjs.com) to serve the app
 - Build process
-  - [Grunt](https://gruntjs.com)
-  - [Bower](https://bower.io)
+  - [Grunt](http://gruntjs.com)
+  - [Bower](http://bower.io)
 
 
