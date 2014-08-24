@@ -22,3 +22,10 @@ We make use of the following technologies:
   - [Bower](http://bower.io)
 
 
+## Inspiration
+
+This project is heavily inspired by
+
+- [ngbp-auth](https://github.com/arnoutaertgeerts/ngbp-auth)
+- [angular-client-side-auth](https://github.com/fnakstad/angular-client-side-auth)
+- [angular-app](https://github.com/angular-app/angular-app)
