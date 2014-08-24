@@ -3,13 +3,13 @@ ng-pouch
 
 Full stack angular app using pouchDB/couchDB to store data and handle security.
 
-- [Stack]
-- [Installation]
-- [Inspiration]
-- [Roadmap]
-- [Contribute]
+- [Stack](#stack)
+- [Installation](#installation)
+- [Roadmap](#roadmap)
+- [Inspiration](#inspiration)
+- [Contribute](#contribute)
 
-## Stack
+## Stack<a name="stack"></a>
 
 We make use of the following technologies:
 
@@ -31,7 +31,7 @@ We make use of the following technologies:
   - [Bower](http://bower.io)
 
 
-## Inspiration
+## Inspiration<a name="inspiration"></a>
 
 This project is heavily inspired by
 
