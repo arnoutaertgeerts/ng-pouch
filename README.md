@@ -29,6 +29,6 @@ We make use of the following technologies:
 
 This project is heavily inspired by
 
-- [ngbp-auth](https://github.com/arnoutaertgeerts/ngbp-auth)
+- [ngbp](https://github.com/ngbp/ngbp)
 - [angular-client-side-auth](https://github.com/fnakstad/angular-client-side-auth)
 - [angular-app](https://github.com/angular-app/angular-app)
