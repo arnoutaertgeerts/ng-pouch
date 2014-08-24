@@ -9,7 +9,7 @@ We make use of the following technologies:
   - [angular-form-for](https://github.com/bvaughn/angular-form-for): Easily produce forms and add validation
   - [angular-loading-bar](https://github.com/chieffancypants/angular-loading-bar): Automatically create a loading bar 
   - [angularjs-toaster](https://github.com/jirikavi/AngularJS-Toaster): Notification system
-- [PouchDB](https://pouchdb.com): Couchdb client
+- [PouchDB](http://pouchdb.com): Couchdb client
   - [angular-pouchdb](https://github.com/angular-pouchdb/angular-pouchdb): Angular bindings
   - [pouchdb-authentication](https://github.com/nolanlawson/pouchdb-authentication): Easy authentication using pouchdb
 - [CouchDB](https://couchdb.com): NoSQL database
