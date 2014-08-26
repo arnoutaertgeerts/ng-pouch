@@ -10,7 +10,8 @@ angular.module('model', [
         'userdb',
         'cfpLoadingBar',
         'toaster',
-        function ($http, $q, database, userdb, cfpLoadingBar, toaster) {
+        '$rootScope',
+        function ($http, $q, database, userdb, cfpLoadingBar, toaster, $rootScope) {
 
             function factory(type) {
                 var db;
@@ -38,6 +39,14 @@ angular.module('model', [
                     }
                 };
 
+                var catchMethod = function(err) {
+                    if (err.status >= 400 && err.status < 500) {
+                        $rootScope.emit('couch:unauthorized', err.message);
+                    } else {
+                        $rootScope.emit('couch:error', err.message);
+                    }
+                };
+
                 var Model = function (data) {
                     angular.extend(this, data);
 
@@ -51,7 +60,7 @@ angular.module('model', [
                 Model.db = db;
 
                 Model.query = function(fun, options) {
-                    return db.query(fun, options);
+                    return db.query(fun, options).catch(catchMethod);
                 };
 
                 Model.all = function() {
@@ -60,7 +69,7 @@ angular.module('model', [
                     return Model.query('type/' + type).then(promiseMethod).catch(function(err) {
                         toaster.pop('error', 'Something went wrong getting your request :(', err.message);
 
-                    }).finally(cfpLoadingBar.complete());
+                    }).catch(catchMethod).finally(cfpLoadingBar.complete());
                 };
 
                 Model.prototype.$save = function () {

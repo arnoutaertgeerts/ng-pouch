@@ -1,7 +1,7 @@
 angular.module('admin', [
     'ui.router',
     'trNgGrid',
-    'model.todo',
+    'model.todo'
 ])
 
     .config(function config($stateProvider) {

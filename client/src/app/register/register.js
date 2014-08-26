@@ -1,11 +1,11 @@
 angular.module('register', [
     'ui.router',
     'authorization',
-    'formFor'
+    'formFor',
+    'toaster'
 ])
 
     .config(function config($stateProvider) {
-        var access = routingConfig.accessLevels;
 
         $stateProvider.state('register', {
             url: '/register',
@@ -27,12 +27,14 @@ angular.module('register', [
         '$scope',
         '$location',
         'Auth',
-        function ($rootScope, $scope, $location, Auth) {
+        'toaster',
+        function ($rootScope, $scope, $location, Auth, toaster) {
             var role = 'user';
 
             $scope.submit = function (data) {
                 Auth.register({
-                    username: data.email,
+                    _id: data.email,
+                    name: data.name,
                     email: data.email,
                     password: data.password,
                     role: role
@@ -41,6 +43,13 @@ angular.module('register', [
                         $location.path('/');
                     },
                     function (err) {
+                        if(err.status === 409) {
+                            toaster.pop('error', 'That username has already been taken!');
+                        }
+                        else {
+                            toaster.pop('error', 'Something went wrong during the signup...', err.message);
+                        }
+
                         $location.path('/register');
                     });
             };

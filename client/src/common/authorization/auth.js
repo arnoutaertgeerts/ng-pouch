@@ -44,7 +44,7 @@ angular.module('authorization', [
     .factory('Auth', function ($http, $cookieStore, database, Access, User) {
 
         var db = database.db,
-            currentUser = new User($cookieStore.get('user') || { username: '', role: 'anon' });
+            currentUser = new User($cookieStore.get('user') || { name: '', role: 'anon' });
 
         $cookieStore.remove('user');
 
@@ -62,8 +62,8 @@ angular.module('authorization', [
                 return authorizedRoles.indexOf(role) != -1;
             },
 
-            getUser: function (username) {
-                db.getUser(username).then(function (res) {
+            getUser: function (name) {
+                db.getUser(name).then(function (res) {
                     changeUser(new User(res));
                 });
             },
@@ -76,7 +76,7 @@ angular.module('authorization', [
             },
 
             register: function (user) {
-                return db.signup(user.username, user.password, {
+                return db.signup(user.name, user.password, {
                     metadata: {
                         email: user.email,
                         role: user.role
@@ -84,16 +84,16 @@ angular.module('authorization', [
                 });
             },
 
-            login: function (username, password) {
-                return db.login(username, password).then(function (res) {
-                    factory.getUser(username);
+            login: function (name, password) {
+                return db.login(name, password).then(function (res) {
+                    factory.getUser(name);
                 });
             },
 
             logout: function (success, error) {
-                db.logout(currentUser.username).then(function () {
+                db.logout(currentUser.name).then(function () {
                     changeUser({
-                        username: '',
+                        name: '',
                         email: '',
                         role: 'anon'
                     });
@@ -105,13 +105,13 @@ angular.module('authorization', [
 
             changePassword: function(oldPassword, newPassword) {
                 //Check the old password of the current user by logging in again
-                var username = currentUser.name;
+                var name = currentUser.name;
 
                 //Change the password to the new password
-                factory.login(username, oldPassword).then(function() {
+                factory.login(name, oldPassword).then(function() {
                     currentUser.password = newPassword;
                     currentUser.$save().then(function() {
-                        factory.getUser(username);
+                        factory.getUser(name);
                     });
                 }).catch(function(err) {
                     console.log(err);
@@ -119,7 +119,7 @@ angular.module('authorization', [
             },
 
             update: function () {
-                return factory.getUser(factory.user.username);
+                return factory.getUser(factory.user.name);
             },
 
             user: currentUser
