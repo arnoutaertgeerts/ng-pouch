@@ -1,6 +1,7 @@
 angular.module('authorization', [
     'ngCookies',
-    'database'
+    'database',
+    'model.user'
 ])
 
     /*
@@ -40,10 +41,10 @@ angular.module('authorization', [
      *
      * Authorization service
      * */
-    .factory('Auth', function ($http, $cookieStore, database, Access) {
+    .factory('Auth', function ($http, $cookieStore, database, Access, User) {
 
         var db = database.db,
-            currentUser = $cookieStore.get('user') || { username: '', role: 'anon' };
+            currentUser = new User($cookieStore.get('user') || { username: '', role: 'anon' });
 
         $cookieStore.remove('user');
 
@@ -63,7 +64,7 @@ angular.module('authorization', [
 
             getUser: function (username) {
                 db.getUser(username).then(function (res) {
-                    changeUser(res);
+                    changeUser(new User(res));
                 });
             },
 
@@ -101,9 +102,26 @@ angular.module('authorization', [
                     error();
                 });
             },
-            update: function (user) {
-                changeUser(user);
+
+            changePassword: function(oldPassword, newPassword) {
+                //Check the old password of the current user by logging in again
+                var username = currentUser.name;
+
+                //Change the password to the new password
+                factory.login(username, oldPassword).then(function() {
+                    currentUser.password = newPassword;
+                    currentUser.$save().then(function() {
+                        factory.getUser(username);
+                    });
+                }).catch(function(err) {
+                    console.log(err);
+                });
             },
+
+            update: function () {
+                return factory.getUser(factory.user.username);
+            },
+
             user: currentUser
         };
 

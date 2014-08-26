@@ -1,85 +1,19 @@
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="passwordModal.html">
     <div class="modal-header">
         <h3 class="modal-title">Change password</h3>
     </div>
     <div class="modal-body">
-        <form name="form" ng-submit="ok()" novalidate>
-            <div class="form-group">
-                <label class="control-label" for="password">Password</label>
-                <input
-                        class="form-control"
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Password"
-                        required
-                        ng-model="data.password"/>
-                <span
-                        class="help-block"
-                        ng-show="form.password.$dirty && form.password.$error.required"> Please enter a password
-                </span>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label" for="verification">Repeat password</label>
-                <input
-                        class="form-control"
-                        type="password"
-                        name="verification"
-                        id="verification"
-                        placeholder="Repeat password"
-                        required
-                        ng-model="data.verification"/>
-                <span
-                        class="help-block"
-                        ng-show="form.verification.$dirty && form.verification.$error.required"> Please repeat your password
-                </span>
-                <span
-                        class="help-block"
-                        ng-show="form.verification.$dirty && form.verification.$error.match && !form.verification.$error.required"> Passwords don't match
-                </span>
-            </div>
-
-            <div growl-notifications></div>
-
-            <button class="btn btn-success" ng-submit="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-
+        <form form-for="data" submit-with="submit(data)">
+            <text-field label="Current password" attribute="oldPassword" placeholder="Old Password" type="password"></text-field>
+            <text-field label="New password" attribute="newPassword" type="password" placeholder="New Password"></text-field>
+            <text-field label="Verify password" attribute="verPassword" type="password" placeholder="Verify new password"></text-field>
+            <submit-button label="Change password"></submit-button>
         </form>
 
     </div>
 </script>
 
-<form editable-form name="editableForm" onaftersave="update()">
-    <div>
-        <span class="title">User name: </span>
-        <span editable-text="user.username" e-name="username" e-required>{{ user.username || 'empty' }}</span>
-    </div>
 
-    <div>
-        <span class="title">Email address</span>
-        <span editable-text="user.email"  e-name="email" e-required>{{ user.email || 'empty' }}</span>
-    </div>
+<button type="button" class="btn btn-danger" ng-click="openModal()">Change Password</button>
 
-    <div class="buttons">
-        <!-- button to show form -->
-        <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
-            Edit
-        </button>
 
-        <button type="button" class="btn btn-warning" ng-click="openPasswordModal()" ng-show="!editableForm.$visible">
-            Change password
-        </button>
-
-        <!-- buttons to submit / cancel form -->
-        <span ng-show="editableForm.$visible">
-            <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
-                Save
-            </button>
-            <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting"
-                    ng-click="editableForm.$cancel()">
-                Cancel
-            </button>
-      </span>
-    </div>
-</form>

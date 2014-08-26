@@ -2,6 +2,7 @@
   <dictionary name="arnoutaertgeerts">
     <words>
       <w>pouchdb</w>
+      <w>userdb</w>
     </words>
   </dictionary>
 </component>

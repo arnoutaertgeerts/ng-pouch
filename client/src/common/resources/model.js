@@ -1,14 +1,25 @@
 angular.module('model', [
-    'database'
+    'database',
+    'cfp.loadingBar',
+    'toaster'
 ])
     .factory('model', [
         '$http',
         '$q',
         'database',
-        function ($http, $q, database) {
-            var db = database.db;
+        'userdb',
+        'cfpLoadingBar',
+        'toaster',
+        function ($http, $q, database, userdb, cfpLoadingBar, toaster) {
 
             function factory(type) {
+                var db;
+
+                if(type === 'user') {
+                    db = userdb.db;
+                } else {
+                    db = database.db;
+                }
 
                 var promiseMethod = function (promise) {
                     var result;
@@ -29,34 +40,64 @@ angular.module('model', [
 
                 var Model = function (data) {
                     angular.extend(this, data);
-                    if (!this.type) {
-                        this["type"] = type;
+
+                    if (type !== 'user') {
+                        if (!this.type) {
+                            this["type"] = type;
+                        }
                     }
                 };
+
+                Model.db = db;
 
                 Model.query = function(fun, options) {
                     return db.query(fun, options);
                 };
 
                 Model.all = function() {
-                    return Model.query('type/' + type).then(promiseMethod);
+                    cfpLoadingBar.start();
+
+                    return Model.query('type/' + type).then(promiseMethod).catch(function(err) {
+                        toaster.pop('error', 'Something went wrong getting your request :(', err.message);
+
+                    }).finally(cfpLoadingBar.complete());
                 };
 
                 Model.prototype.$save = function () {
+                    cfpLoadingBar.start();
+
                     var model = this;
                     if (!model._id) {
                         return db.post(model).then(function(res) {
                             model._rev = res.rev;
-                        });
+                            toaster.pop('success', 'All changes saved');
+
+                        }).catch(function(err) {
+                            toaster.pop('error', 'Something went wrong saving your request :(', err.message);
+
+                        }).finally(cfpLoadingBar.complete());
                     } else {
                         return db.put(model).then(function(res) {
                             model._rev = res.rev;
-                        });
+                            toaster.pop('success', 'All changes saved');
+
+                        }).catch(function(err) {
+                            toaster.pop('error', 'Something went wrong saving your request :(', err.message);
+
+                        }).finally(cfpLoadingBar.complete());
                     }
                 };
 
                 Model.prototype.$remove = function() {
-                    return db.remove(this);
+                    cfpLoadingBar.start();
+
+                    return db.remove(this).then(function(res) {
+                        toaster.pop('info', 'Item successfully deleted');
+
+                    }).catch(function(err) {
+                        toaster.pop('error', 'Something went wrong deleting your item :(', err.message);
+
+                    }).finally(cfpLoadingBar.complete());
                 };
 
                 return Model;
