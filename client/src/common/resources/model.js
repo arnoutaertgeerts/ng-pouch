@@ -118,6 +118,9 @@ angular.module('model', [
                     });
                 };
 
+                Model.promiseMethod = promiseMethod;
+                Model.catchMethod = catchMethod;
+
                 return Model;
             }
 

@@ -1,15 +1,23 @@
 angular.module('model.user', [
-    'model',
-    'database'
+    'model'
 ])
     .factory('User', [
         '$q',
-        'model',
-        'userdb',
-        function($q, model) {
+        '$http',
+        function($q, $http) {
 
-            var Factory = model('user');
+            var User = function (data) {
+                angular.extend(this, data);
+            };
 
-            return Factory;
+            User.prototype.$save = function() {
+                var model = this;
+
+                return $http.post('/update', model).then(function(res) {
+                    model._rev = res.rev;
+                })
+            };
+
+            return User;
 
         }]);

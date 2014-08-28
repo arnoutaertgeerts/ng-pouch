@@ -34,7 +34,7 @@ angular.module('user', [
         '$modal',
         'Auth',
         'User',
-        function ($scope, $modal, Auth, User) {
+        function ($scope, $modal, Auth) {
             $scope.user = Auth.user;
 
             Auth.checkMail('arnoutaertgeerts@gmail.com');
@@ -65,7 +65,7 @@ angular.module('user', [
                 modal.result.then(function(user) {
                     user.$save().then(function(res) {
                         $scope.user = user;
-                        Auth.update(user);
+                        Auth.update();
 
                     });
                 })
