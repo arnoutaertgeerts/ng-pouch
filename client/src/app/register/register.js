@@ -44,7 +44,7 @@ angular.module('register', [
                     },
                     function (err) {
                         if(err.status === 409) {
-                            toaster.pop('error', 'That username has already been taken!');
+                            toaster.pop('error', err.data);
                         }
                         else {
                             toaster.pop('error', 'Something went wrong during the signup...', err.message);

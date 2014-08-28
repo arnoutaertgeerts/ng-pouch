@@ -104,9 +104,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-//Routes
-require('./app/users/user-routes')(app);
-require('./app/dokters/dokter-routes')(app, auth);
 require('./app/app-routes/authorization.js')(app);
 
 //HTML5 Mode (needs to be the last route added)

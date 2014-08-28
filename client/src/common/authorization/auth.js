@@ -1,7 +1,8 @@
 angular.module('authorization', [
     'ngCookies',
     'database',
-    'model.user'
+    'model.user',
+    'toaster'
 ])
 
     /*
@@ -41,7 +42,7 @@ angular.module('authorization', [
      *
      * Authorization service
      * */
-    .factory('Auth', function ($http, $cookieStore, database, Access, User) {
+    .factory('Auth', function ($http, $cookieStore, database, Access, User, toaster) {
 
         var db = database.db,
             currentUser = new User($cookieStore.get('user') || { name: '', role: 'anon' });
@@ -76,12 +77,20 @@ angular.module('authorization', [
             },
 
             register: function (user) {
-                return db.signup(user.name, user.password, {
-                    metadata: {
-                        email: user.email,
-                        role: user.role
-                    }
-                });
+                user["type"] = "user";
+                user["roles"] = [];
+
+                return $http.post('/signup', user);
+            },
+
+            checkMail: function(email) {
+                $http.post('/checkmail', {
+                    email: email
+                }).then(function(res) {
+                    return res;
+                }).catch(function(err) {
+                    return err;
+                })
             },
 
             login: function (name, password) {

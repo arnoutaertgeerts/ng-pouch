@@ -34,21 +34,44 @@ angular.module('user', [
         '$modal',
         'Auth',
         'User',
-        function ($scope, $modal, Auth) {
+        function ($scope, $modal, Auth, User) {
             $scope.user = Auth.user;
+
+            Auth.checkMail('arnoutaertgeerts@gmail.com');
+
 
             $scope.save = function() {
                 $scope.user.$save().then(Auth.update());
             };
 
-            $scope.openModal = function() {
+            $scope.openPasswordModal = function() {
                 var modal = $modal.open({
                     templateUrl: 'passwordModal.html',
-                    controller: ModalInstanceCtrl
+                    controller: PasswordModalCtrl
                 });
             };
 
-            var ModalInstanceCtrl = function ($scope, $modalInstance) {
+            $scope.openUserModal = function() {
+                var modal = $modal.open({
+                    templateUrl: 'userModal.html',
+                    controller: UserModalCtrl,
+                    resolve: {
+                        user: function() {
+                            return angular.copy($scope.user);
+                        }
+                    }
+                });
+
+                modal.result.then(function(user) {
+                    user.$save().then(function(res) {
+                        $scope.user = user;
+                        Auth.update(user);
+
+                    });
+                })
+            };
+
+            var PasswordModalCtrl = function ($scope, $modalInstance) {
                 $scope.data = {};
 
                 $scope.submit = function (data) {
@@ -60,4 +83,16 @@ angular.module('user', [
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            var UserModalCtrl = function($scope, $modalInstance, user) {
+                $scope.user = user;
+
+                $scope.submit = function(data) {
+                    $modalInstance.close(data)
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
         }]);

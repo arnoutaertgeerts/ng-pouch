@@ -41,9 +41,9 @@ angular.module('model', [
 
                 var catchMethod = function(err) {
                     if (err.status >= 400 && err.status < 500) {
-                        $rootScope.emit('couch:unauthorized', err.message);
+                        $rootScope.$emit('couch:unauthorized', err.message);
                     } else {
-                        $rootScope.emit('couch:error', err.message);
+                        $rootScope.$emit('couch:error', err.message);
                     }
                 };
 
@@ -69,7 +69,9 @@ angular.module('model', [
                     return Model.query('type/' + type).then(promiseMethod).catch(function(err) {
                         toaster.pop('error', 'Something went wrong getting your request :(', err.message);
 
-                    }).catch(catchMethod).finally(cfpLoadingBar.complete());
+                    }).catch(catchMethod).finally(function() {
+                        cfpLoadingBar.complete()
+                    });
                 };
 
                 Model.prototype.$save = function () {
@@ -84,16 +86,21 @@ angular.module('model', [
                         }).catch(function(err) {
                             toaster.pop('error', 'Something went wrong saving your request :(', err.message);
 
-                        }).finally(cfpLoadingBar.complete());
+                        }).finally(function() {
+                            cfpLoadingBar.complete()
+                        });
                     } else {
                         return db.put(model).then(function(res) {
                             model._rev = res.rev;
+
                             toaster.pop('success', 'All changes saved');
 
                         }).catch(function(err) {
                             toaster.pop('error', 'Something went wrong saving your request :(', err.message);
 
-                        }).finally(cfpLoadingBar.complete());
+                        }).finally(function() {
+                            cfpLoadingBar.complete()
+                        });
                     }
                 };
 
@@ -106,7 +113,9 @@ angular.module('model', [
                     }).catch(function(err) {
                         toaster.pop('error', 'Something went wrong deleting your item :(', err.message);
 
-                    }).finally(cfpLoadingBar.complete());
+                    }).finally(function() {
+                        cfpLoadingBar.complete()
+                    });
                 };
 
                 return Model;

@@ -1,19 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class=""><label>Username</label>: {{ user.name }}</div>
+        <div class=""><label>Email</label>: {{ user.email }}</div>
+
+
+        <button type="button" class="btn btn-success" ng-click="openUserModal()">Edit Profile</button>
+        <button type="button" class="btn btn-danger" ng-click="openPasswordModal()">Change Password</button>
+    </div>
+</div>
+
 <script type="text/ng-template" id="passwordModal.html">
     <div class="modal-header">
         <h3 class="modal-title">Change password</h3>
     </div>
     <div class="modal-body">
         <form form-for="data" submit-with="submit(data)">
-            <text-field label="Current password" attribute="oldPassword" placeholder="Old Password" type="password"></text-field>
-            <text-field label="New password" attribute="newPassword" type="password" placeholder="New Password"></text-field>
-            <text-field label="Verify password" attribute="verPassword" type="password" placeholder="Verify new password"></text-field>
+            <text-field label="Current password" attribute="oldPassword" placeholder="Old Password"
+                        type="password"></text-field>
+            <text-field label="New password" attribute="newPassword" type="password"
+                        placeholder="New Password"></text-field>
+            <text-field label="Verify password" attribute="verPassword" type="password"
+                        placeholder="Verify new password"></text-field>
             <submit-button label="Change password"></submit-button>
+            <button class="btn btn-warning" ng-click="cancel()">
+                Cancel
+            </button>
         </form>
 
     </div>
 </script>
 
 
-<button type="button" class="btn btn-danger" ng-click="openModal()">Change Password</button>
+<script type="text/ng-template" id="userModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Change your profile</h3>
+    </div>
+    <div class="modal-body">
+        <form form-for="user" submit-with="submit(user)">
+            <text-field label="Email" attribute="email" placeholder="Email">{{ user.email }}</text-field>
+
+            <submit-button label="Save"></submit-button>
+            <button class="btn btn-warning" ng-click="cancel()">
+                Cancel
+            </button>
+        </form>
+
+    </div>
+</script>
+
 
 

@@ -1,10 +1,10 @@
 angular.module('login', [
     'ui.router',
-    'authorization'
+    'authorization',
+    'toaster'
 ])
 
     .config(function config($stateProvider) {
-        var access = routingConfig.accessLevels;
 
         $stateProvider.state('login', {
             url: '/login',
@@ -27,14 +27,19 @@ angular.module('login', [
         '$location',
         '$window',
         'Auth',
-        function ($rootScope, $scope, $location, $window, Auth) {
+        'toaster',
+        function ($rootScope, $scope, $location, $window, Auth, toaster) {
 
             $scope.rememberme = true;
             $scope.login = function () {
-                Auth.login($scope.username, $scope.password).then(function(res) {
+                Auth.login($scope.name, $scope.password).then(function(res) {
                     $location.path('/home');
-                }, function(err) {
+                    toaster.pop('success', 'Login successful!', 'Welcome ' + $scope.name);
+
+                }).catch(function (err) {
+                    toaster.pop('error', 'Login failed', 'Incorrect username or password, please try again!');
                     $location.path('/login');
+
                 });
             };
         }]);
