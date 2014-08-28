@@ -80,7 +80,9 @@ angular.module('authorization', [
                 user["type"] = "user";
                 user["roles"] = [];
 
-                return $http.post('/signup', user);
+                return $http.post('/signup', user).then(function(res) {
+                    toaster.pop('success', 'Your account was created! Try logging in :)')
+                })
             },
 
             checkMail: function(email) {

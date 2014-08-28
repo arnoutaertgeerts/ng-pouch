@@ -16,16 +16,6 @@ var express =           require('express'),
 
 require('express-namespace');
 
-//Make connection to the mongo database
-require('./lib/connection');
-
-//Bootstrap models
-require('./app/users/user-models');
-require('./app/dokters/dokter-models');
-
-//Get the user model
-var User = require('./app/users/user-models.js');
-
 var app = module.exports = express();
 
 //SEO middleware
@@ -85,24 +75,6 @@ app.use(errorHandler({
     dumpExceptions: true,
     showStack: true
 }));
-
-//Setup passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(User.localStrategy);
-passport.serializeUser(User.serializeUser);
-passport.deserializeUser(User.deserializeUser);
-
-//Log current user information to the console
-app.use(function (req, res, next) {
-    if (req.user) {
-        console.log('Current User: '.grey + '%s', req.user.username);
-    } else {
-        console.log('Unauthenticated'.blue);
-    }
-    next();
-});
 
 require('./app/app-routes/authorization.js')(app);
 

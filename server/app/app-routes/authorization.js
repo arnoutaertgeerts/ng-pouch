@@ -67,7 +67,7 @@ module.exports = function (app) {
         // Do the unique checks
         return q.all([
             checkName(user.name, 1),
-            checkMail(user.email, 1)
+            checkMail(user.email, 0)
         ])
             .then(function () {
                 save();
