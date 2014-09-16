@@ -45,7 +45,7 @@ angular.module('authorization', [
     .factory('Auth', function ($http, $cookieStore, database, Access, User, toaster) {
 
         var db = database.db,
-            currentUser = new User($cookieStore.get('user') || { name: '', role: 'anon' });
+            currentUser = new User($cookieStore.get('user') || { name: '', roles: ['anon']});
 
         $cookieStore.remove('user');
 
@@ -54,13 +54,15 @@ angular.module('authorization', [
         }
 
         var factory = {
-            authorize: function (accessLevel, role) {
-                if (role === undefined) {
-                    role = currentUser.role;
+            authorize: function (accessLevel, roles) {
+                if (roles === undefined) {
+                    roles = currentUser.roles;
                 }
 
                 var authorizedRoles = Access[accessLevel];
-                return authorizedRoles.indexOf(role) != -1;
+
+                return _.intersection(authorizedRoles, currentUser.roles).length > 0;
+
             },
 
             getUser: function (name) {
@@ -73,7 +75,8 @@ angular.module('authorization', [
                 if (user === undefined) {
                     user = currentUser;
                 }
-                return user.role === 'user' || user.role === 'admin';
+
+                return user.roles.indexOf('anon') != -1;
             },
 
             register: function (user) {
@@ -106,7 +109,7 @@ angular.module('authorization', [
                     changeUser({
                         name: '',
                         email: '',
-                        role: 'anon'
+                        roles: ['anon']
                     });
                     success();
                 }, function () {
@@ -157,8 +160,8 @@ angular.module('authorization', [
 
                     $scope.user = Auth.user;
                     $scope.$watch('user', function (user) {
-                        if (user.role) {
-                            userRole = user.role;
+                        if (user.roles) {
+                            userRole = user.roles;
                         }
                         updateCSS();
                     }, true);

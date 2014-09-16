@@ -77,7 +77,8 @@ module.exports = {
             'vendor/trNgGrid/release/trNgGrid.min.js',
             'vendor/angular-animate/angular-animate.min.js',
             'vendor/angularjs-toaster/toaster.js',
-            'vendor/angular-loading-bar/build/loading-bar.min.js'
+            'vendor/angular-loading-bar/build/loading-bar.min.js',
+            'vendor/underscore/underscore-min.js'
         ],
         css: [
             'vendor/angular-loading-bar/build/loading-bar.min.css',
