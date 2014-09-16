@@ -28,6 +28,9 @@ module.exports = function (app) {
     app.post('/signup', function (request, respons, next) {
         var user = request.body;
 
+        //Hard code role of a new user to user
+        user.roles = ["user"];
+
         var save = function () {
             db.save('org.couchdb.user:' + user.name, user, function (err, res) {
                 if (err) {

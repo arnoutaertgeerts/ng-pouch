@@ -81,7 +81,9 @@ angular.module('authorization', [
 
             register: function (user) {
                 user["type"] = "user";
-                user["roles"] = [];
+
+                //Roles are set and overwritten server side to keep the app safe.
+                user["roles"] = "";
 
                 return $http.post('/signup', user).then(function(res) {
                     toaster.pop('success', 'Your account was created! Try logging in :)')
