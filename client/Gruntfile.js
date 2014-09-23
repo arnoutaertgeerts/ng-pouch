@@ -654,11 +654,33 @@ module.exports = function (grunt) {
             return file.replace(dirRE, '');
         });
 
+        /*
+        * Make sure the module files are loaded first!
+        * */
+
+        var appFiles = [];
+        var vendorFiles = [];
+
+        jsFiles.forEach(function(element) {
+            if(element.indexOf('vendor') > -1) {
+                vendorFiles.push(element);
+            }
+            else {
+                if(element.indexOf('module') > -1) {
+                    appFiles.unshift(element);
+                } else {
+                    appFiles.push(element);
+                }
+            }
+        });
+
+
         grunt.file.copy('src/index.html', this.data.dir + '/index.html', {
             process: function (contents, path) {
                 return grunt.template.process(contents, {
                     data: {
-                        scripts: jsFiles,
+                        appScripts: appFiles,
+                        vendorScripts: vendorFiles,
                         styles: cssFiles,
                         version: grunt.config('pkg.version')
                     }

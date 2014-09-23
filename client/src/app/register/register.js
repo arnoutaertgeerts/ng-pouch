@@ -1,71 +1,42 @@
-angular.module('register', [
-    'ui.router',
-    'authorization',
-    'formFor',
-    'toaster'
-])
+(function() {
+    'use strict';
 
-    .config(function config($stateProvider) {
+    angular
+        .module('register')
+        .controller('RegisterCtrl', RegisterCtrl);
 
-        $stateProvider.state('register', {
-            url: '/register',
-            views: {
-                "main": {
-                    controller: 'RegisterCtrl',
-                    templateUrl: 'register/register.tpl.html'
-                }
-            },
-            data: {
-                pageTitle: 'Register',
-                access: 'anon'
-            }
-        });
-    })
+    RegisterCtrl.$inject = ['$rootScope', '$scope', '$location', 'Auth', 'toaster'];
 
-    .controller('RegisterCtrl', [
-        '$rootScope',
-        '$scope',
-        '$location',
-        'Auth',
-        'toaster',
-        function ($rootScope, $scope, $location, Auth, toaster) {
-            var role = 'user';
+    function RegisterCtrl($rootScope, $scope, $location, Auth, toaster) {
+        var vm = this;
+        var role = 'user';
 
-            $scope.submit = function (data) {
-                Auth.register({
-                    _id: data.email,
-                    name: data.name,
-                    email: data.email,
-                    password: data.password,
-                    role: role
-                }).then(
-                    function () {
-                        $location.path('/');
-                    },
-                    function (err) {
-                        if(err.status === 409) {
-                            toaster.pop('error', err.data);
-                        }
-                        else {
-                            toaster.pop('error', 'Something went wrong during the signup...', err.message);
-                        }
+        vm.submit = submit;
 
-                        $location.path('/register');
-                    });
-            };
-        }])
 
-    .service('UserSignUp', function () {
-        this.validationRules = {
-            email: {
-                required: true,
-                pattern: /^\w+@\w+\.\w+$/ // Simple email format
-            },
-            password: {
-                required: true,
-                minlength: 5
-            }
-        };
+        function submit(data) {
+            Auth.register({
+                _id: data.email,
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                role: role
+            }).then(
+                function () {
+                    $location.path('/');
+                },
+                function (err) {
+                    if(err.status === 409) {
+                        toaster.pop('error', err.data);
+                    }
+                    else {
+                        toaster.pop('error', 'Something went wrong during the signup...', err.message);
+                    }
 
-        return this;
-    });
+                    $location.path('/register');
+                });
+        }
+    }
+
+})();
+

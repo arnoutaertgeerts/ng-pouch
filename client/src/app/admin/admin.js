@@ -1,44 +1,43 @@
-angular.module('admin', [
-    'ui.router',
-    'trNgGrid',
-    'model.todo'
-])
+(function() {
+    'use strict';
 
-    .config(function config($stateProvider) {
-        $stateProvider.state('admin', {
-            url: '/admin',
-            views: {
-                "main": {
-                    controller: 'AdminCtrl',
-                    templateUrl: 'admin/admin.tpl.html'
-                }
-            },
-            data: {
-                pageTitle: 'Admin',
-                access: 'user'
-            }
-        });
-    })
+    angular
+        .module('admin')
+        .controller('AdminCtrl', AdminCtrl);
 
-    .controller('AdminCtrl', function AdminController($scope, Todo, database, $modal) {
-        Todo.all().then(function(res) {
-            $scope.todos = res;
-        });
+    AdminCtrl.$inject = ['$scope', 'Todo', 'database', '$modal'];
 
-        $scope.newTodo = function() {
+    function AdminCtrl($scope, Todo, database, $modal) {
+        var vm = this;
+
+        vm.todos = [];
+        vm.newTodo = newTodo;
+        vm.remove = remove;
+        vm.edit = edit;
+
+        loadTodos();
+
+
+        function loadTodos() {
+            Todo.all().then(function (res) {
+                vm.todos = res;
+            });
+        }
+
+        function newTodo() {
             var todo = Todo.example();
-            todo.$save().then(function(res) {
-                $scope.todos.push(todo);
+            todo.$save().then(function (res) {
+                vm.todos.push(todo);
             });
-        };
+        }
 
-        $scope.remove = function(todo) {
-            todo.$remove().then(function(res) {
-                $scope.todos.splice($scope.todos.indexOf(todo),1);
+        function remove(todo) {
+            todo.$remove().then(function (res) {
+                vm.todos.splice(vm.todos.indexOf(todo), 1);
             });
-        };
+        }
 
-        $scope.edit = function(todo) {
+        function edit(todo) {
 
             var modal = $modal.open({
                 templateUrl: 'todoModal.html',
@@ -50,15 +49,15 @@ angular.module('admin', [
                 }
             });
 
-            modal.result.then(function(data) {
-                data.$save().then(function(res) {
-                    $scope.todos[$scope.todos.indexOf(todo)] = data;
+            modal.result.then(function (data) {
+                data.$save().then(function (res) {
+                    vm.todos[vm.todos.indexOf(todo)] = data;
                 });
 
-            }, function() {
+            }, function () {
 
             });
-        };
+        }
 
         /**
          * @ngInject
@@ -74,4 +73,6 @@ angular.module('admin', [
                 $modalInstance.dismiss('cancel');
             };
         };
-    });
+    }
+
+})();

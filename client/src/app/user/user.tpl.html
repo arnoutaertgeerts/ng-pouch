@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-12">
-        <div class=""><label>Username</label>: {{ user.name }}</div>
-        <div class=""><label>Email</label>: {{ user.email }}</div>
+        <div class=""><label>Username</label>: {{ vm.user.name }}</div>
+        <div class=""><label>Email</label>: {{ vm.user.email }}</div>
 
 
-        <button type="button" class="btn btn-success" ng-click="openUserModal()">Edit Profile</button>
-        <button type="button" class="btn btn-danger" ng-click="openPasswordModal()">Change Password</button>
+        <button type="button" class="btn btn-success" ng-click="vm.openUserModal()">Edit Profile</button>
+        <button type="button" class="btn btn-danger" ng-click="vm.openPasswordModal()">Change Password</button>
     </div>
 </div>
 

@@ -1,31 +1,20 @@
-angular.module('about', [
-    'ui.router',
-    'ui.bootstrap'
-])
+(function() {
+    'use strict';
 
-    .config(function config($stateProvider) {
-        var access = routingConfig.accessLevels;
+    angular
+        .module('about')
+        .controller('AboutCtrl', AboutCtrl);
 
-        $stateProvider.state('about', {
-            url: '/about',
-            views: {
-                "main": {
-                    controller: 'AboutCtrl',
-                    templateUrl: 'about/about.tpl.html'
-                }
-            },
-            data: {
-                pageTitle: 'What is It?',
-                access: 'user'
-            }
-        });
-    })
+    AboutCtrl.$inject = [];
 
-    .controller('AboutCtrl', function AboutCtrl($scope) {
-        // This is simple a demo for UI Boostrap.
-        $scope.dropdownDemoItems = [
+    function AboutCtrl() {
+        var vm = this;
+
+        vm.dropDownDemoItems = [
             "The first choice!",
             "And another choice for you.",
             "but wait! A third!"
         ];
-    });
+    }
+
+})();

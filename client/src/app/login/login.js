@@ -1,45 +1,36 @@
-angular.module('login', [
-    'ui.router',
-    'authorization',
-    'toaster'
-])
+(function() {
+    'use strict';
 
-    .config(function config($stateProvider) {
+    angular
+        .module('login')
+        .controller('LoginCtrl', LoginCtrl);
 
-        $stateProvider.state('login', {
-            url: '/login',
-            views: {
-                "main": {
-                    controller: 'LoginCtrl',
-                    templateUrl: 'login/login.tpl.html'
-                }
-            },
-            data: {
-                pageTitle: 'Login',
-                access: 'anon'
-            }
-        });
-    })
-
-    .controller('LoginCtrl', [
+    LoginCtrl.$inject = [
         '$rootScope',
         '$scope',
         '$location',
         '$window',
         'Auth',
-        'toaster',
-        function ($rootScope, $scope, $location, $window, Auth, toaster) {
+        'toaster'
+    ];
 
-            $scope.rememberme = true;
-            $scope.login = function () {
-                Auth.login($scope.name, $scope.password).then(function(res) {
-                    $location.path('/home');
-                    toaster.pop('success', 'Login successful!', 'Welcome ' + $scope.name);
+    function LoginCtrl($rootScope, $scope, $location, $window, Auth, toaster) {
+        var vm = this;
 
-                }).catch(function (err) {
-                    toaster.pop('error', 'Login failed', 'Incorrect username or password, please try again!');
-                    $location.path('/login');
+        vm.rememberme = true;
+        vm.login = login;
 
-                });
-            };
-        }]);
+        function login() {
+            Auth.login(vm.name, vm.password).then(function (res) {
+                $location.path('/home');
+                toaster.pop('success', 'Login successful!', 'Welcome ' + vm.name);
+
+            }).catch(function (err) {
+                toaster.pop('error', 'Login failed', 'Incorrect username or password, please try again!');
+                $location.path('/login');
+
+            });
+        }
+    }
+
+})();

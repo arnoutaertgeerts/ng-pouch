@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="ngBoilerplate" ng-controller="AppCtrl">
+<html ng-app="app" ng-controller="AppCtrl as vm">
 <head>
-    <title ng-bind="pageTitle"></title>
+    <title ng-bind="vm.pageTitle"></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,7 +11,11 @@
     <link rel="stylesheet" type="text/css" href="<%= file %>"/>
     <% }); %>
 
-    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <!-- compiled JavaScript --><% vendorScripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script>
+    <% }); %>
+
+    <!-- compiled JavaScript --><% appScripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script>
     <% }); %>
 

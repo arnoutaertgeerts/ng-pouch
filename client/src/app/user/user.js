@@ -1,98 +1,80 @@
-angular.module('user', [
-    'ui.router',
-    'ui.bootstrap',
-    'authorization',
-    'model.user'
-])
+(function() {
+    'use strict';
 
-    /*
-     * Route
-     * */
-    .config(function config($stateProvider) {
-        var access = routingConfig.accessLevels;
+    angular
+        .module('user')
+        .controller('UserCtrl', UserCtrl);
 
-        $stateProvider.state('user', {
-            url: '/user',
-            views: {
-                "main": {
-                    controller: 'UserCtrl',
-                    templateUrl: 'user/user.tpl.html'
-                }
-            },
-            data: {
-                pageTitle: 'My Profile',
-                access: 'user'
-            }
-        });
-    })
-
-    /*
-     * Controller
-     * */
-    .controller('UserCtrl', [
+    UserCtrl.$inject = [
         '$scope',
         '$modal',
-        'Auth',
-        'User',
-        function ($scope, $modal, Auth) {
-            $scope.user = Auth.user;
+        'Auth'
+    ];
 
-            Auth.checkMail('arnoutaertgeerts@gmail.com');
+    function UserCtrl($scope, $modal, Auth) {
+        var vm = this;
+
+        vm.user = Auth.user;
+        vm.save = save;
+        vm.openPasswordModal = openPasswordModal;
+        vm.openUserModal = openUserModal;
 
 
-            $scope.save = function() {
-                $scope.user.$save().then(Auth.update());
-            };
+        function save() {
+            vm.user.$save().then(Auth.update());
+        }
 
-            $scope.openPasswordModal = function() {
-                var modal = $modal.open({
-                    templateUrl: 'passwordModal.html',
-                    controller: PasswordModalCtrl
-                });
-            };
+        function openPasswordModal() {
+            var modal = $modal.open({
+                templateUrl: 'passwordModal.html',
+                controller: PasswordModalCtrl
+            });
+        }
 
-            $scope.openUserModal = function() {
-                var modal = $modal.open({
-                    templateUrl: 'userModal.html',
-                    controller: UserModalCtrl,
-                    resolve: {
-                        user: function() {
-                            return angular.copy($scope.user);
-                        }
+        function openUserModal() {
+            var modal = $modal.open({
+                templateUrl: 'userModal.html',
+                controller: UserModalCtrl,
+                resolve: {
+                    user: function () {
+                        return angular.copy(vm.user);
                     }
+                }
+            });
+
+            modal.result.then(function (user) {
+                user.$save().then(function (res) {
+                    vm.user = user;
+                    Auth.update();
+
                 });
+            })
+        }
 
-                modal.result.then(function(user) {
-                    user.$save().then(function(res) {
-                        $scope.user = user;
-                        Auth.update();
+        var PasswordModalCtrl = function ($scope, $modalInstance) {
+            $scope.data = {};
 
-                    });
-                })
+            $scope.submit = function (data) {
+                Auth.changePassword(data.oldPassword, data.newPassword);
+                $modalInstance.close();
             };
 
-            var PasswordModalCtrl = function ($scope, $modalInstance) {
-                $scope.data = {};
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
 
-                $scope.submit = function (data) {
-                    Auth.changePassword(data.oldPassword, data.newPassword);
-                    $modalInstance.close();
-                };
+        var UserModalCtrl = function ($scope, $modalInstance, user) {
+            $scope.user = user;
 
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
+            $scope.submit = function (data) {
+                $modalInstance.close(data)
             };
 
-            var UserModalCtrl = function($scope, $modalInstance, user) {
-                $scope.user = user;
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        }
+    }
 
-                $scope.submit = function(data) {
-                    $modalInstance.close(data)
-                };
-
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-            }
-        }]);
+})();

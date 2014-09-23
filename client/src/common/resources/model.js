@@ -11,6 +11,7 @@ angular.module('model', [
         'cfpLoadingBar',
         'toaster',
         '$rootScope',
+
         function ($http, $q, database, userdb, cfpLoadingBar, toaster, $rootScope) {
 
             function factory(type) {

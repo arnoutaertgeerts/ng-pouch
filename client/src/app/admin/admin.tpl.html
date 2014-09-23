@@ -1,13 +1,13 @@
-<table tr-ng-grid="" items="todos">
+<table tr-ng-grid="" items="vm.todos">
 
     <tr>
         <td>
-            <button class="btn btn-default" ng-click="edit(gridItem)">
+            <button class="btn btn-default" ng-click="vm.edit(gridItem)">
                 Edit
             </button>
         </td>
         <td>
-            <button class="btn btn-danger" ng-click="remove(gridItem)">
+            <button class="btn btn-danger" ng-click="vm.remove(gridItem)">
                 Delete
             </button>
         </td>
@@ -15,9 +15,9 @@
 
 </table>
 
-<button type="button" class="btn btn-default" ng-click="newTodo()">New todo</button>
+<button type="button" class="btn btn-default" ng-click="vm.newTodo()">New todo</button>
 
-<button type="button" class="btn btn-default" ng-click="toast()">Toast</button>
+<button type="button" class="btn btn-default" ng-click="vm.toast()">Toast</button>
 
 <script type="text/ng-template" id="todoModal.html">
     <div class="modal-header">

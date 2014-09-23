@@ -5,7 +5,7 @@
                 <h3 class="panel-title">Signup&nbsp;</h3>
             </div>
             <div class="panel-body">
-                <form form-for="user" service="UserSignUp" submit-with="submit(data)">
+                <form form-for="user" service="UserSignUp" submit-with="vm.submit(data)">
                     <text-field label="Username" attribute="name" placeholder="Username"></text-field>
                     <text-field label="Email" attribute="email" placeholder="Email"></text-field>
                     <text-field label="Password" attribute="password" type="password" placeholder="Password"></text-field>
