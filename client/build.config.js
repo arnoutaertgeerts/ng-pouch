@@ -64,7 +64,6 @@ module.exports = {
         js: [
             'vendor/pace/pace.min.js',
             'vendor/angular/angular.js',
-            'vendor/pouchdb/dist/pouchdb.js',
             'vendor/pouchdb-authentication/dist/pouchdb.authentication.min.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-placeholders/placeholders-0.0.1-SNAPSHOT.min.js',
@@ -73,6 +72,8 @@ module.exports = {
             'vendor/angular-cookies/angular-cookies.min.js',
             'vendor/angular-form-for/dist/form-for.min.js',
             'vendor/angular-pouchdb/angular-pouchdb.js',
+            'vendor/factoryng/dist/factoryng.js',
+            'vendor/factoryng/dist/adapters/pouchyng.js',
             'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/trNgGrid/release/trNgGrid.min.js',
             'vendor/angular-animate/angular-animate.min.js',

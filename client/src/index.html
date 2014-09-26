@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/pouchdb/3.0.6/pouchdb.min.js"></script>
 
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>"/>
@@ -66,6 +67,8 @@
                         Profile
                     </a>
                 </li>
+
+                <li access-level="public"><a href="/live">Live</a></li>
 
                 <li access-level="anon"><a href="/login">Log in</a></li>
                 <li access-level="anon"><a href="/register">Register</a></li>

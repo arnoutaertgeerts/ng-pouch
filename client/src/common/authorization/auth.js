@@ -16,7 +16,7 @@
 
     function Auth($http, $cookieStore, database, Access, User, toaster) {
 
-        var db = database.db;
+        var db = database("https://housemt.couchappy.com/todos");
         var currentUser = new User($cookieStore.get('user') || { name: '', roles: ['anon']});
 
         $cookieStore.remove('user');

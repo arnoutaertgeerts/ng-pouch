@@ -13,6 +13,7 @@
             'register',
             'login',
             'user',
+            'live',
             //Plugins
             'authorization',
             'toaster',
