@@ -1,4 +1,9 @@
 
-<div ng-repeat="doc in vm.todos">
+<button class="btn btn-success" ng-click="vm.create()">Create a new Doc</button>
+
+<div ng-repeat="doc in vm.testdb track by $index">
     <pre>{{ doc | json}}</pre>
+    <button class="btn btn-primary" ng-click="vm.remove(doc)">Remove item</button>
+    <button class="btn btn-warning" ng-click="vm.update(doc)">update item</button>
 </div>
+

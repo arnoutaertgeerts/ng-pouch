@@ -3,7 +3,7 @@
 
     angular
         .module('live', [
-            'factoryng'
+            'todos'
         ])
 
 

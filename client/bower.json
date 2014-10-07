@@ -9,7 +9,8 @@
     "angular-ui-router": "~0.2",
     "angular-cookies": "~1.2.12",
     "angular-form-for": "~1.2.2",
-    "pouchdb": "~3.0.1"
+    "pouchdb": "~3.0.5",
+    "factoryng": "latest"
   },
   "dependencies": {
     "angular-loading-bar": "~0.5.0",

@@ -4,9 +4,7 @@
     angular
         .module('admin', [
             'ui.router',
-            'trNgGrid',
-            'model.todo',
-            'sync'
+            'trNgGrid'
         ])
 
 })();
