@@ -46,57 +46,57 @@
             }
 
             function all() {
-                $rootScope.$emit('req:model:start');
+                $rootScope.$emit('req:start');
 
                 return Model.query('type/' + type).then(promiseMethod).catch(function(err) {
-                    $rootScope.$emit('req:model:error', err.message);
+                    $rootScope.$emit('model:error', err.message);
 
                 }).catch(catchMethod).finally(function() {
-                    $rootScope.$emit('req:model:end');
+                    $rootScope.$emit('req:end');
                 });
             }
 
             function save() {
-                $rootScope.$emit('req:model:start');
+                $rootScope.$emit('req:start');
 
                 var model = this;
                 if (!model._id) {
                     return db.post(model).then(function(res) {
                         model._rev = res.rev;
-                        $rootScope.$emit('req:model:create');
+                        $rootScope.$emit('model:create');
 
                     }).catch(function(err) {
-                        $rootScope.$emit('req:model:error', err.message);
+                        $rootScope.$emit('model:error', err.message);
 
                     }).finally(function() {
-                        $rootScope.$emit('req:model:end');
+                        $rootScope.$emit('req:end');
                     });
                 } else {
                     return db.put(model).then(function(res) {
                         model._rev = res.rev;
 
-                        $rootScope.$emit('req:model:update');
+                        $rootScope.$emit('model:update');
 
                     }).catch(function(err) {
-                        $rootScope.$emit('req:model:error', err.message);
+                        $rootScope.$emit('model:error', err.message);
 
                     }).finally(function() {
-                        $rootScope.$emit('req:model:end');
+                        $rootScope.$emit('req:end');
                     });
                 }
             }
 
             function remove() {
-                $rootScope.$emit('req:model:start');
+                $rootScope.$emit('req:start');
 
                 return db.remove(this).then(function(res) {
-                    $rootScope.$emit('req:model:remove');
+                    $rootScope.$emit('model:remove');
 
                 }).catch(function(err) {
-                    $rootScope.$emit('req:model:error', err.message);
+                    $rootScope.$emit('model:error', err.message);
 
                 }).finally(function() {
-                    $rootScope.$emit('req:model:end');
+                    $rootScope.$emit('req:end');
                 });
             }
 
