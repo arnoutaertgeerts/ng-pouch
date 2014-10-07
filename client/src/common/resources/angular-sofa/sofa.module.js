@@ -2,6 +2,8 @@
     'use strict';
 
     angular
-        .module('sofa', []);
+        .module('sofa', [
+
+        ]);
 
 })();

@@ -6,12 +6,10 @@
         .factory('Database', Database);
 
     Database.$inject = [
-        '$http',
-        '$q',
         'PouchDB'
     ];
 
-    function Database($http, $q, PouchDB) {
+    function Database(PouchDB) {
 
         function factory(databaseName) {
             return new PouchDB(databaseName);

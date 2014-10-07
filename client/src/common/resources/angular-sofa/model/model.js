@@ -9,12 +9,10 @@
         '$http',
         '$q',
         'Database',
-        'cfpLoadingBar',
-        'toaster',
         '$rootScope'
     ];
 
-    function Model ($http, $q, Database, cfpLoadingBar, toaster, $rootScope) {
+    function Model ($http, $q, Database, $rootScope) {
 
         function factory(databaseName, type) {
             var db = Database(databaseName);
@@ -48,57 +46,57 @@
             }
 
             function all() {
-                cfpLoadingBar.start();
+                $rootScope.$emit('req:model:start');
 
                 return Model.query('type/' + type).then(promiseMethod).catch(function(err) {
-                    toaster.pop('error', 'Something went wrong getting your request :(', err.message);
+                    $rootScope.$emit('req:model:error', err.message);
 
                 }).catch(catchMethod).finally(function() {
-                    cfpLoadingBar.complete()
+                    $rootScope.$emit('req:model:end');
                 });
             }
 
             function save() {
-                cfpLoadingBar.start();
+                $rootScope.$emit('req:model:start');
 
                 var model = this;
                 if (!model._id) {
                     return db.post(model).then(function(res) {
                         model._rev = res.rev;
-                        toaster.pop('success', 'All changes saved');
+                        $rootScope.$emit('req:model:create');
 
                     }).catch(function(err) {
-                        toaster.pop('error', 'Something went wrong saving your request :(', err.message);
+                        $rootScope.$emit('req:model:error', err.message);
 
                     }).finally(function() {
-                        cfpLoadingBar.complete()
+                        $rootScope.$emit('req:model:end');
                     });
                 } else {
                     return db.put(model).then(function(res) {
                         model._rev = res.rev;
 
-                        toaster.pop('success', 'All changes saved');
+                        $rootScope.$emit('req:model:update');
 
                     }).catch(function(err) {
-                        toaster.pop('error', 'Something went wrong saving your request :(', err.message);
+                        $rootScope.$emit('req:model:error', err.message);
 
                     }).finally(function() {
-                        cfpLoadingBar.complete()
+                        $rootScope.$emit('req:model:end');
                     });
                 }
             }
 
             function remove() {
-                cfpLoadingBar.start();
+                $rootScope.$emit('req:model:start');
 
                 return db.remove(this).then(function(res) {
-                    toaster.pop('info', 'Item successfully deleted');
+                    $rootScope.$emit('req:model:remove');
 
                 }).catch(function(err) {
-                    toaster.pop('error', 'Something went wrong deleting your item :(', err.message);
+                    $rootScope.$emit('req:model:error', err.message);
 
                 }).finally(function() {
-                    cfpLoadingBar.complete()
+                    $rootScope.$emit('req:model:end');
                 });
             }
 
@@ -121,9 +119,9 @@
 
             function catchMethod(err) {
                 if (err.status >= 400 && err.status < 500) {
-                    $rootScope.$emit('couch:unauthorized', err.message);
+                    $rootScope.$emit('req:unauthorized', err.message);
                 } else {
-                    $rootScope.$emit('couch:error', err.message);
+                    $rootScope.$emit('req:error', err.message);
                 }
             }
 
