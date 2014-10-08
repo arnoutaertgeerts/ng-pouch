@@ -5,6 +5,4 @@
         .module('live', [
             'todos'
         ])
-
-
 })();

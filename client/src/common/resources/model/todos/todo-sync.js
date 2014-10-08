@@ -3,9 +3,12 @@
 
     angular
         .module('todos')
-        .factory('todos', TodoFactory);
+        .factory('TodoSync', TodoFactory);
 
-    TodoFactory.$inject = ['Sync', 'yngutils'];
+    TodoFactory.$inject = [
+        'Sync',
+        'yngutils'
+    ];
 
     function TodoFactory(Sync, yngutils) {
 

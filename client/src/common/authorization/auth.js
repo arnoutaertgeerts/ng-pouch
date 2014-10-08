@@ -8,15 +8,15 @@
     Auth.$inject = [
         '$http',
         '$cookieStore',
-        'database',
+        'Database',
         'Access',
         'User',
         'toaster'
     ];
 
-    function Auth($http, $cookieStore, database, Access, User, toaster) {
+    function Auth($http, $cookieStore, Database, Access, User, toaster) {
 
-        var db = database("https://housemt.couchappy.com/todos");
+        var db = Database("https://housemt.couchappy.com/todos");
         var currentUser = new User($cookieStore.get('user') || { name: '', roles: ['anon']});
 
         $cookieStore.remove('user');

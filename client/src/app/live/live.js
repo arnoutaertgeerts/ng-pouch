@@ -6,22 +6,26 @@
         .controller('LiveCtrl', LiveCtrl);
 
     LiveCtrl.$inject = [
-        '$scope',
-        '$timeout',
-        'todos'
+        'TodoSync',
+        'TodoModel'
     ];
 
-    function LiveCtrl($scope, $timeout, todos) {
+    function LiveCtrl(TodoSync, TodoModel) {
         var vm = this;
 
-        todos.bind(vm);
+        TodoSync.bind(vm);
 
+        //Sync methods
         vm.create = create;
         vm.remove = remove;
         vm.update = update;
 
+        //Model methods
+        vm.createModel = createModel;
+        vm.removeModel = removeModel;
+
         function create() {
-            todos.create({
+            TodoSync.create({
                 title: 'Create a new doc',
                 type: 'post'
             }).then(function () {
@@ -32,7 +36,7 @@
         }
 
         function remove(doc) {
-            todos.remove(doc).then(function () {
+            TodoSync.remove(doc).then(function () {
                 console.log('success')
             }).catch(function(err) {
                 console.log(err)
@@ -41,11 +45,29 @@
 
         function update(doc) {
             doc.text = "I'm updated!";
-            todos.update(doc).then(function () {
+            TodoSync.update(doc).then(function () {
                 console.log('success')
             }).catch(function(err) {
                 console.log(err)
             })
+        }
+
+        function createModel() {
+            var newTodo = new TodoModel({
+            'title': 'Created with the Model factory'
+            });
+
+            newTodo.$save().then(function() {
+                console.log('success');
+            }).catch(function(err) {
+                console.log(err)
+            })
+        }
+
+        function removeModel(doc) {
+            var todo = new TodoModel(doc);
+
+            todo.$remove();
         }
 
     }

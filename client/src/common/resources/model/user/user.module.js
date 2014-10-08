@@ -2,9 +2,7 @@
     'use strict';
 
     angular
-        .module('model.user', [
-            'model'
-        ])
+        .module('model.user', [])
 
 
 })();

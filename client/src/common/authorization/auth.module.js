@@ -4,7 +4,7 @@
     angular
         .module('authorization',  [
             'ngCookies',
-            'database',
+            'sofa',
             'model.user',
             'toaster'
         ]);

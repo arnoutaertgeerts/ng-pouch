@@ -1,9 +1,11 @@
 
-<button class="btn btn-success" ng-click="vm.create()">Create a new Doc</button>
+<button class="btn btn-success" ng-click="vm.create()">Create a new Doc using sync</button>
+<button class="btn btn-danger" ng-click="vm.createModel()">Create a new Doc as a Model</button>
 
 <div ng-repeat="doc in vm.testdb track by $index">
     <pre>{{ doc | json}}</pre>
     <button class="btn btn-primary" ng-click="vm.remove(doc)">Remove item</button>
+    <button class="btn btn-danger" ng-click="vm.removeModel(doc)">Remove item using Model factory</button>
     <button class="btn btn-warning" ng-click="vm.update(doc)">update item</button>
 </div>
 
