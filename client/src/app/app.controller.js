@@ -11,16 +11,20 @@
         '$rootScope',
         '$scope',
         '$location',
-        'Auth'
+        'Auth',
+        'cfpLoadingBar'
     ];
 
 
-    function AppCtrl($rootScope, $scope, $location, Auth) {
+    function AppCtrl($rootScope, $scope, $location, Auth, cfpLoadingBar) {
         var vm = this;
 
         vm.logout = logout;
         vm.clearError = clearError;
 
+        //Catch request start end stop events for the loading bar
+        $rootScope.$on('req:start', cfpLoadingBar.start);
+        $rootScope.$on('req:end', cfpLoadingBar.complete);
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {

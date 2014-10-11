@@ -6,11 +6,12 @@
         .controller('LiveCtrl', LiveCtrl);
 
     LiveCtrl.$inject = [
+        '$rootScope',
         'TodoSync',
         'TodoModel'
     ];
 
-    function LiveCtrl(TodoSync, TodoModel) {
+    function LiveCtrl($rootScope, TodoSync, TodoModel) {
         var vm = this;
 
         TodoSync.bind(vm);

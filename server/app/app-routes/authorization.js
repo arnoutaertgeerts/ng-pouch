@@ -1,7 +1,7 @@
 var cradle = require('cradle');
 var q = require('Q');
 
-var connection = new (cradle.Connection)('https://housemt.couchappy.com', 443, {
+var connection = new (cradle.Connection)('https://housemt.iriscouch.com', 443, {
     secure: true,
     auth: { username: 'admin', password: 'secret' }
 });

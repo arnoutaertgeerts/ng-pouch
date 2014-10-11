@@ -18,7 +18,8 @@
             'authorization',
             'toaster',
             'ui.router',
-            'ngSanitize'
+            'ngSanitize',
+            'cfp.loadingBar'
         ]);
 
 

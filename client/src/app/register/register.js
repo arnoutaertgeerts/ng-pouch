@@ -19,8 +19,7 @@
                 _id: data.email,
                 name: data.name,
                 email: data.email,
-                password: data.password,
-                role: role
+                password: data.password
             }).then(
                 function () {
                     $location.path('/');
@@ -30,6 +29,7 @@
                         toaster.pop('error', err.data);
                     }
                     else {
+                        console.log(err);
                         toaster.pop('error', 'Something went wrong during the signup...', err.message);
                     }
 
