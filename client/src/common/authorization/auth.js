@@ -19,6 +19,10 @@
         var db = Database('https://housemt.iriscouch.com/testdb');
         var currentUser = new User($cookieStore.get('user') || { name: '', roles: ['anon']});
 
+        db.getSession().then(function(session) {
+            getUser(session.userCtx.name)
+        });
+
         $cookieStore.remove('user');
 
         function changeUser(user) {

@@ -3,7 +3,7 @@
 
     angular
         .module('sofa', [
-            'pouchdb'
+
         ]);
 
 })();
