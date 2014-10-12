@@ -36,9 +36,9 @@ Serve the app using ```node``` or [```nodemon```](https://github.com/remy/nodemo
 nodemon server.js
 ````
 
-## Guide <a name="guide></a>
+## Guide<a name="guide></a>
 
-### The Angular app <a name="angular"></a>
+#### The Angular app <a name="angular"></a>
 
 The angular app is served by a minimal express server and tries to be as independent of the express app as possible. Almost all requests are send directly to a CouchDB instance using PouchDB. Requests are handled by the ```angular-sofa``` module. This module contains two main factories:
 
@@ -46,9 +46,13 @@ The angular app is served by a minimal express server and tries to be as indepen
 - The ```Model``` factory: Used to interact with a remote CouchDB database as with a REST api.
 
 
+#### CouchDB configuration <a name="couchdbconfig"></a>
 
+The app tries to leverage the extra features of CouchDB as much as possible. This includes
 
-### CouchDB configuration <a name="couchdbconfig"></a>
+- Views
+- Security through validation documents
+- Filters for filtered syncing to the local database
 
 
 ## Stack<a name="stack"></a>
