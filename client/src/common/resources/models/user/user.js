@@ -6,11 +6,10 @@
         .factory('User', User);
 
     User.$inject = [
-        '$q',
         '$http'
     ];
 
-    function User($q, $http) {
+    function User($http) {
         var User = InitUser;
 
         User.prototype.$save = save;

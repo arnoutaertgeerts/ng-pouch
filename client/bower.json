@@ -17,6 +17,7 @@
     "angular-pouchdb": "angular-pouchdb/angular-pouchdb",
     "trNgGrid": "~3.0.3",
     "angularjs-toaster": "~0.4.7",
-    "pace": "~0.5.6"
+    "pace": "~0.5.6",
+    "eventEmitter": "latest"
   }
 }

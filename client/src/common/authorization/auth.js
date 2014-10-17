@@ -70,6 +70,7 @@
 
         function register(user) {
             user["type"] = "user";
+            user["_id"] = 'org.couchdb.user:' + user.name;
 
             //Roles are set and overwritten server side to keep the app safe.
             user["roles"] = "";

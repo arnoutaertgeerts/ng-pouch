@@ -25,6 +25,7 @@
         vm.createModel = createModel;
         vm.removeModel = removeModel;
 
+
         function create() {
             TodoSync.create({
                 title: 'Create a new doc',

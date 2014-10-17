@@ -63,11 +63,10 @@ module.exports = {
     vendor_files: {
         js: [
             //External plugins
-            'vendor/pace/pace.min.js',
             'vendor/underscore/underscore-min.js',
+            "vendor/eventEmitter/EventEmitter.js",
             //PouchDB plugins
             'vendor/pouchdb-authentication/dist/pouchdb.authentication.min.js',
-            'vendor/delta-pouch/dist/pouchdb.delta-pouch.js',
             //Angular plugins
             'vendor/angular/angular.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
@@ -75,9 +74,6 @@ module.exports = {
             'vendor/angular-ui-utils/modules/route/route.js',
             'vendor/angular-cookies/angular-cookies.min.js',
             'vendor/angular-form-for/dist/form-for.min.js',
-            'vendor/angular-pouchdb/angular-pouchdb.js',
-            'vendor/factoryng/dist/factoryng.js',
-            'vendor/factoryng/dist/adapters/pouchyng.js',
             'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/trNgGrid/release/trNgGrid.min.js',
             'vendor/angular-animate/angular-animate.min.js',

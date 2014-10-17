@@ -11,8 +11,7 @@ var express =           require('express'),
     session =           require('express-session'),
     csrf =              require('csurf'),
     errorHandler =      require('errorhandler'),
-    config =            require('./lib/config.js'),
-    mongoose =          require('mongoose');
+    config =            require('./lib/config.js');
 
 require('express-namespace');
 
@@ -81,9 +80,6 @@ require('./app/app-routes/authorization.js')(app);
 //HTML5 Mode (needs to be the last route added)
 require('./app/app-routes/html5mode').addRoutes(app, config);
 
-//passport.use(User.twitterStrategy());  // Comment out this line if you don't want to enable login via Twitter
-//passport.use(User.facebookStrategy()); // Comment out this line if you don't want to enable login via Facebook
-//passport.use(User.googleStrategy());   // Comment out this line if you don't want to enable login via Google
 
 app.set('port', process.env.PORT || 8000);
 http.createServer(app).listen(app.get('port'), function(){

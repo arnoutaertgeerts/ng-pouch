@@ -16,7 +16,6 @@
 
         function submit(data) {
             Auth.register({
-                _id: data.email,
                 name: data.name,
                 email: data.email,
                 password: data.password
