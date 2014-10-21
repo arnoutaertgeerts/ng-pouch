@@ -5,14 +5,14 @@
   "private": true,
   "dependencies": {
     "body-parser": "~1.4.3",
-    "bower": "~1.3.5",
     "compression": "~1.0.8",
     "cookie-parser": "~1.3.1",
     "cookie-session": "~1.0.2",
-    "cradle": "latest",
+    "mongoose": "latest",
     "csurf": "~1.2.2",
     "express": "~4.4.4",
     "express-session": "~1.5.0",
+    "express-namespace": "latest",
     "method-override": "~2.0.2",
     "morgan": "~1.1.1",
     "nano": "^5.12.0",
@@ -28,8 +28,7 @@
   "subdomain": "angular-client-side-auth",
   "scripts": {
     "start": "grunt dev",
-    "test": "grunt test",
-    "postinstall": "bower install"
+    "test": "grunt test"
   },
   "engines": {
     "node": "0.8.x"
@@ -55,8 +54,6 @@
     "karma-script-launcher": "~0.1.0",
     "mocha": "~1.20.1",
     "nodemon": "~1.2.0",
-    "passport-stub": "~1.0.0",
-    "requirejs": "~2.1.14",
     "sinon": "~1.10.2",
     "supertest": "~0.13.0",
     "errorhandler": "~1.1.1"
