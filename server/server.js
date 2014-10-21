@@ -18,12 +18,14 @@ require('express-namespace');
 var app = module.exports = express();
 
 //SEO middleware
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var fragment = req.query._escaped_fragment_;
 
     // If there is no fragment in the query params
     // then we're not serving a crawler
-    if (!fragment) return next();
+    if (!fragment) {
+        return next()
+    };
 
     // If the fragment is empty, serve the
     // index page
