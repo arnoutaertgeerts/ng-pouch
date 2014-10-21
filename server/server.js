@@ -2,7 +2,6 @@
 
 var express =           require('express'),
     http =              require('http'),
-    passport =          require('passport'),
     path =              require('path'),
     morgan =            require('morgan'),
     bodyParser =        require('body-parser'),
