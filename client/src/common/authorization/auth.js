@@ -101,7 +101,9 @@
                 changeUser({
                     name: '',
                     email: '',
-                    roles: ['anon']
+                    roles: [
+                        'anon'
+                    ]
                 });
                 success();
             }, function () {

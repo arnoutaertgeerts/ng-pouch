@@ -119,8 +119,6 @@
                     return db.logout(name)
                 }).catch(error).finally(endRequest)
             }
-
         }
-
     }
 })();

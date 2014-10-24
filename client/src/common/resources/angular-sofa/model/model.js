@@ -27,7 +27,6 @@
 
             return Model;
 
-
             function InitModel(data) {
                 angular.extend(this, data);
 
@@ -67,10 +66,8 @@
             }
 
             function remove() {
-
                 return db.remove(this).then(function(res) {
                     $rootScope.$emit('model:remove');
-
                 })
             }
 

@@ -2,9 +2,8 @@
     'use strict';
 
     angular
-        .module('model.user', [
-            'authorization'
+        .module('model.user', [ 
+            'sofa'
         ])
-
 
 })();
