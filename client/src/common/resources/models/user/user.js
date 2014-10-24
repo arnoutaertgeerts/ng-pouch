@@ -6,10 +6,11 @@
         .factory('User', User);
 
     User.$inject = [
-        '$http'
+        '$http',
+        'Auth'
     ];
 
-    function User($http) {
+    function User($http, Auth) {
         var User = InitUser;
 
         User.prototype.$save = save;
@@ -23,9 +24,12 @@
         function save() {
             var model = this;
 
-            return $http.post('/update', model).then(function(res) {
-                model._rev = res.rev;
-            })
+            return Auth.getCookie().then(function(authCookie) {
+
+                $http.post('/update', model).then(function(res) {
+                    model._rev = res.rev;
+                })
+            });
         }
     }
 
