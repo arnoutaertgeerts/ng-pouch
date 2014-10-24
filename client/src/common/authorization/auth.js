@@ -17,7 +17,7 @@
 
     function Auth($http, $cookieStore, $cookies, Database, Access, User, toaster) {
 
-        var db = Database('https://housemt.iriscouch.com/testdb');
+        var db = Database('https://housemt.iriscouch.com/_users');
         var currentUser = new User($cookieStore.get('user') || { name: '', roles: ['anon']});
 
         db.getSession().then(function(session) {
@@ -57,6 +57,7 @@
         function getUser(name) {
             db.getUser(name).then(function (res) {
                 changeUser(new User(res));
+                
             });
         }
 

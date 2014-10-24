@@ -8,10 +8,11 @@
     PouchDBFactory.$inject = [
         '$timeout',
         '$window',
-        '$rootScope'
+        '$rootScope',
+        '$q'
     ];
     
-    function PouchDBFactory($timeout, $window, $rootScope) {
+    function PouchDBFactory($timeout, $window, $rootScope, $q) {
         return function(name, options) {
             var db = new $window.PouchDB(name, options);
 
@@ -39,11 +40,17 @@
             }
 
             function error(err) {
+                var deferred = $q.defer();
+                
                 if (err.status >= 400 && err.status < 500) {
                     $rootScope.$emit('req:unauthorized', err.message);
+                    deferred.reject(err);
                 } else {
                     $rootScope.$emit('req:error', err.message);
+                    deferred.reject(err);
                 }
+                
+                return deferred.promise;
             }
 
             //Wrapper methods
