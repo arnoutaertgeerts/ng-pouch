@@ -20,7 +20,7 @@ var UserSchema = mongoose.Schema({
     email: {type: String, unique: true}
 });
 
-User = mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
 
 
 //Module routes

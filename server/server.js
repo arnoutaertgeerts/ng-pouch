@@ -61,7 +61,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(session({secret: "keyboard cat"}));
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'debug';
 if ('development' === env || 'production' === env) {
     app.use(csrf());
     app.use(function(req, res, next) {
@@ -76,7 +76,8 @@ app.use(errorHandler({
     showStack: true
 }));
 
-require('./app/app-routes/authorization.js')(app);
+//require('./app/app-routes/authorization.js')(app);
+require('./app/users/user.routes.js')(app);
 
 //HTML5 Mode (needs to be the last route added)
 require('./app/app-routes/html5mode').addRoutes(app, config);

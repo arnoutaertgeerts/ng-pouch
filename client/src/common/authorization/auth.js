@@ -8,13 +8,14 @@
     Auth.$inject = [
         '$http',
         '$cookieStore',
+        '$cookies',
         'Database',
         'Access',
         'User',
         'toaster'
     ];
 
-    function Auth($http, $cookieStore, Database, Access, User, toaster) {
+    function Auth($http, $cookieStore, $cookies, Database, Access, User, toaster) {
 
         var db = Database('https://housemt.iriscouch.com/testdb');
         var currentUser = new User($cookieStore.get('user') || { name: '', roles: ['anon']});
@@ -49,7 +50,6 @@
             }
 
             var authorizedRoles = Access[accessLevel];
-
             return _.intersection(authorizedRoles, currentUser.roles).length > 0;
 
         }
@@ -122,10 +122,6 @@
             }).catch(function (err) {
                 console.log(err);
             });
-        }
-
-        function update() {
-            return factory.getUser(factory.user.name);
         }
     }
 
